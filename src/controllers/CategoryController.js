@@ -6,7 +6,7 @@ class CategoryController {
         const categories = await Category.find();
         
         if (!categories) {
-            return res.status(404).json({error: "category not found"});
+            return res.status(400).json({error: "category not found"});
         }
 
         return res.json(categories);
@@ -28,11 +28,11 @@ class CategoryController {
 
         const category = await Category.findById(id);
         if (!category) {
-            return res.status(404).json({error: "category not found"});
+            return res.status(400).json({error: "category not found"});
         }
 
         category.name = name;
-        category.save();
+        await category.save();
 
         return res.status(200).json(category);
     }
@@ -45,7 +45,7 @@ class CategoryController {
             return res.status(404).json({error: "category not found"});
         }
 
-        category.remove();
+        await category.remove();
 
         return res.status(200).json({message: "Deleted"});
     }
