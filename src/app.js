@@ -1,14 +1,18 @@
 import express from 'express'
-import routes from './routes';
+import route from './routes';
 import './database';
 
-// Setup da aplicação
-const app = express();
+class App {
+    constructor(){
+        // Setup da aplicação
+        this.server = express();
 
-// Middlewares de configuração
-app.use(express.json());
+        this.routes();
+    }
 
-// Rotas da aplciação
-app.use(routes);
+    routes() {
+        this.server.use(route);
+    }
+}
 
-export default app;
+export default new App().server;
